@@ -23,10 +23,16 @@ function marginColor(pct: number): string {
   return "text-[#a89070]";
 }
 
-function riskInfo(score: number) {
-  if (score < 0.3) return { label: "Seguro", color: "text-green-400", desc: "Rota segura, sem PvP" };
-  if (score < 0.6) return { label: "Moderado", color: "text-[#c8a84e]", desc: "Pode ter PvP no caminho" };
-  return { label: "Perigoso", color: "text-red-400", desc: "Rota com zona vermelha/preta" };
+// Rotas que passam por zona vermelha/preta
+const DANGEROUS_CITIES = ["Caerleon", "Black Market", "Brecilien"];
+
+function riskInfo(buyCity: string, sellCity: string) {
+  const dangerous = DANGEROUS_CITIES.includes(buyCity) || DANGEROUS_CITIES.includes(sellCity);
+  const bothDangerous = DANGEROUS_CITIES.includes(buyCity) && DANGEROUS_CITIES.includes(sellCity);
+
+  if (bothDangerous) return { label: "Alto", color: "text-red-400", desc: "Ambas cidades em zona PvP - risco alto" };
+  if (dangerous) return { label: "PvP", color: "text-[#c8a84e]", desc: "Rota passa por zona vermelha - cuidado com gankers" };
+  return { label: "Seguro", color: "text-green-400", desc: "Rota entre cidades reais (zona azul/amarela)" };
 }
 
 export function OpportunityTableHeader() {
@@ -50,7 +56,7 @@ export function OpportunityCard({ opp, rank }: { opp: Opportunity; rank: number 
   const itemName = getItemName(opp.buy_item_id);
   const tierBadge = getTierBadgeColor(opp.buy_item_id);
   const pct = Number(opp.margin_pct);
-  const risk = riskInfo(Number(opp.risk_score));
+  const risk = riskInfo(opp.buy_city, opp.sell_city);
 
   const rankStyle = rank === 1
     ? "bg-[#c8a84e] text-[#12100c]"
