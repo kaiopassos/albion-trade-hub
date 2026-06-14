@@ -28,22 +28,22 @@ export function PriceSearch({ onSelect }: PriceSearchProps) {
     <div className="relative w-full max-w-md">
       <input
         placeholder="Buscar item (ex: Titanium, T4_BAG)..."
-        className="w-full rounded-md border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm text-white placeholder:text-neutral-500 focus:border-blue-500 focus:outline-none"
+        className="w-full rounded-md border border-[#3a3028] bg-[#12100c] px-3 py-2 text-sm text-[#e8d5b5] placeholder:text-[#8b7635] focus:border-[#c8a84e] focus:outline-none"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onFocus={() => results.length > 0 && setOpen(true)}
         onBlur={() => setTimeout(() => setOpen(false), 200)}
       />
       {open && results.length > 0 && (
-        <div className="absolute z-50 mt-1 w-full rounded-md border border-neutral-700 bg-neutral-900 shadow-lg max-h-60 overflow-auto">
+        <div className="absolute z-50 mt-1 w-full rounded-md border border-[#3a3028] bg-[#12100c] shadow-lg max-h-60 overflow-auto">
           {results.map((item) => (
             <button key={item.id}
-              className="w-full px-3 py-2 text-left text-sm text-white hover:bg-neutral-800 transition-colors"
+              className="w-full px-3 py-2 text-left text-sm text-[#e8d5b5] hover:bg-[#241e18] transition-colors"
               onMouseDown={() => { onSelect(item.id); setQuery(item.name); setOpen(false); }}
             >
-              <span className="text-neutral-500">T{item.tier}</span>{" "}
+              <span className="text-[#8b7635]">T{item.tier}</span>{" "}
               <span className="font-medium">{item.name}</span>{" "}
-              <span className="text-xs text-neutral-500">{item.id}</span>
+              <span className="text-xs text-[#8b7635]">{item.id}</span>
             </button>
           ))}
         </div>

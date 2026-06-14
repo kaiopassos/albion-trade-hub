@@ -18,7 +18,7 @@ interface Opportunity {
 
 const typeLabels: Record<string, string> = { city: "City Flip", time: "Time Flip", craft: "Craft Flip" };
 const typeColors: Record<string, string> = {
-  city: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+  city: "bg-[#a89070]/10 text-[#a89070] border-[#a89070]/20",
   time: "bg-purple-500/10 text-purple-400 border-purple-500/20",
   craft: "bg-[#c8a84e]/10 text-[#c8a84e] border-[#c8a84e]/20"
 };
@@ -44,14 +44,14 @@ export function OpportunityCard({ opp }: { opp: Opportunity }) {
   const tierBadge = getTierBadgeColor(opp.buy_item_id);
 
   return (
-    <div className="rounded-lg border border-[#2a2f3e] bg-[#181c28] p-4 transition-all hover:border-[#c8a84e]/30 hover:bg-[#1e2230]">
+    <div className="rounded-lg border border-[#3a3028] bg-[#241e18] p-4 transition-all hover:border-[#c8a84e]/30 hover:bg-[#2e2620]">
       <div className="flex items-center gap-4">
         {/* Item icon + info */}
-        <img src={itemIcon} alt={opp.buy_item_id} className="h-12 w-12 rounded-lg border border-[#2a2f3e]" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
+        <img src={itemIcon} alt={opp.buy_item_id} className="h-12 w-12 rounded-lg border border-[#3a3028]" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <span className={cn("rounded border px-1.5 py-0.5 text-[10px] font-bold", tierBadge)}>{tier}</span>
-            <span className="font-medium text-sm text-[#e8dcc8] truncate">{itemName}</span>
+            <span className="font-medium text-sm text-[#e8d5b5] truncate">{itemName}</span>
             <span className={cn("rounded border px-1.5 py-0.5 text-[10px] font-medium", typeColors[opp.type])}>{typeLabels[opp.type]}</span>
           </div>
           <div className="flex items-center gap-1 text-xs text-[#8b7635]">
@@ -62,8 +62,8 @@ export function OpportunityCard({ opp }: { opp: Opportunity }) {
         {/* Buy city */}
         <div className="text-center min-w-[100px]">
           <p className="text-[10px] text-[#8b7635] uppercase">Comprar em</p>
-          <p className="text-sm font-medium text-[#e8dcc8]">{opp.buy_city}</p>
-          <p className="text-sm font-mono text-[#a89878]">{formatSilver(Number(opp.buy_price))}</p>
+          <p className="text-sm font-medium text-[#e8d5b5]">{opp.buy_city}</p>
+          <p className="text-sm font-mono text-[#a89070]">{formatSilver(Number(opp.buy_price))}</p>
         </div>
 
         {/* Arrow */}
@@ -72,8 +72,8 @@ export function OpportunityCard({ opp }: { opp: Opportunity }) {
         {/* Sell city */}
         <div className="text-center min-w-[100px]">
           <p className="text-[10px] text-[#8b7635] uppercase">Vender em</p>
-          <p className="text-sm font-medium text-[#e8dcc8]">{opp.sell_city}</p>
-          <p className="text-sm font-mono text-[#a89878]">{formatSilver(Number(opp.sell_price))}</p>
+          <p className="text-sm font-medium text-[#e8d5b5]">{opp.sell_city}</p>
+          <p className="text-sm font-mono text-[#a89070]">{formatSilver(Number(opp.sell_price))}</p>
         </div>
 
         {/* Profit */}

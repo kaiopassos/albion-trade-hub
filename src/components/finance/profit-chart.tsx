@@ -17,15 +17,15 @@ export function ProfitChart({ transactions }: { transactions: Transaction[] }) {
   if (data.length === 0) return null;
 
   return (
-    <div className="rounded-lg border border-neutral-800 p-4">
-      <h3 className="text-sm font-medium text-white mb-4">Lucro Diario</h3>
+    <div className="rounded-lg border border-[#3a3028] p-4">
+      <h3 className="text-sm font-medium text-[#e8d5b5] mb-4">Lucro Diario</h3>
       <ResponsiveContainer width="100%" height={250}>
         <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-          <XAxis dataKey="day" tick={{ fontSize: 11, fill: "#888" }} />
-          <YAxis tick={{ fontSize: 11, fill: "#888" }} tickFormatter={(v) => Number(v) >= 1000000 ? `${(Number(v) / 1000000).toFixed(1)}M` : Number(v) >= 1000 ? `${(Number(v) / 1000).toFixed(0)}K` : `${v}`} />
-          <Tooltip contentStyle={{ backgroundColor: "#1a1a2e", border: "1px solid #333", borderRadius: "8px" }} formatter={(value) => [`${Number(value).toLocaleString()} silver`, "Lucro"]} />
-          <Bar dataKey="lucro" fill="#22c55e" radius={[4, 4, 0, 0]} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#3a3028" />
+          <XAxis dataKey="day" tick={{ fontSize: 11, fill: "#8b7635" }} />
+          <YAxis tick={{ fontSize: 11, fill: "#8b7635" }} tickFormatter={(v) => Number(v) >= 1000000 ? `${(Number(v) / 1000000).toFixed(1)}M` : Number(v) >= 1000 ? `${(Number(v) / 1000).toFixed(0)}K` : `${v}`} />
+          <Tooltip contentStyle={{ backgroundColor: "#241e18", border: "1px solid #3a3028", borderRadius: "8px" }} formatter={(value) => [`${Number(value).toLocaleString()} silver`, "Lucro"]} />
+          <Bar dataKey="lucro" fill="#2d6a27" radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

@@ -52,36 +52,36 @@ export default function SettingsPage() {
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <h2 className="text-2xl font-bold tracking-tight text-white">Configuracoes</h2>
+      <h2 className="text-2xl font-bold tracking-tight text-[#e8d5b5]">Configuracoes</h2>
 
-      <div className="rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 space-y-4">
-        <h3 className="text-sm font-medium text-white">Perfil</h3>
+      <div className="rounded-lg border border-[#3a3028] bg-[#241e18] p-6 space-y-4">
+        <h3 className="text-sm font-medium text-[#e8d5b5]">Perfil</h3>
         <div className="space-y-1">
-          <label className="text-xs text-neutral-400">Nick no Albion</label>
+          <label className="text-xs text-[#8b7635]">Nick no Albion</label>
           <input value={playerName} onChange={(e) => setPlayerName(e.target.value)} placeholder="Seu nome de jogador"
-            className="w-full rounded-md border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm text-white placeholder:text-neutral-500" />
+            className="w-full rounded-md border border-[#3a3028] bg-[#12100c] px-3 py-2 text-sm text-[#e8d5b5] placeholder:text-[#8b7635]" />
         </div>
         <div className="space-y-1">
-          <label className="text-xs text-neutral-400">Vencimento da Premium</label>
+          <label className="text-xs text-[#8b7635]">Vencimento da Premium</label>
           <input type="date" value={premiumDate} onChange={(e) => setPremiumDate(e.target.value)}
-            className="w-full rounded-md border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm text-white" />
+            className="w-full rounded-md border border-[#3a3028] bg-[#12100c] px-3 py-2 text-sm text-[#e8d5b5]" />
         </div>
       </div>
 
-      <div className="rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 space-y-4">
-        <h3 className="text-sm font-medium text-white">Scanner de Mercado</h3>
+      <div className="rounded-lg border border-[#3a3028] bg-[#241e18] p-6 space-y-4">
+        <h3 className="text-sm font-medium text-[#e8d5b5]">Scanner de Mercado</h3>
         <div className="space-y-1">
-          <label className="text-xs text-neutral-400">Margem minima para alerta (%)</label>
+          <label className="text-xs text-[#8b7635]">Margem minima para alerta (%)</label>
           <input type="number" value={threshold} onChange={(e) => setThreshold(e.target.value)}
-            className="w-32 rounded-md border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm text-white" />
+            className="w-32 rounded-md border border-[#3a3028] bg-[#12100c] px-3 py-2 text-sm text-[#e8d5b5]" />
         </div>
         <div className="space-y-2">
-          <label className="text-xs text-neutral-400">Cidades monitoradas</label>
+          <label className="text-xs text-[#8b7635]">Cidades monitoradas</label>
           <div className="flex flex-wrap gap-2">
             {CITIES.map((city) => (
               <button key={city} onClick={() => toggleCity(city)}
                 className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                  cities.includes(city) ? "bg-blue-600 text-white" : "border border-neutral-700 text-neutral-400 hover:bg-neutral-800"
+                  cities.includes(city) ? "bg-[#c8a84e] text-[#1a1410]" : "border border-[#3a3028] text-[#a89070] hover:bg-[#2e2620]"
                 }`}>
                 {city}
               </button>
@@ -91,7 +91,7 @@ export default function SettingsPage() {
       </div>
 
       <button onClick={handleSave} disabled={saving}
-        className="rounded-md bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50">
+        className="rounded-md bg-[#6b1a1a] px-6 py-2 text-sm font-medium text-[#e8d5b5] hover:bg-[#8b2020] disabled:opacity-50">
         {saving ? "Salvando..." : saved ? "Salvo!" : "Salvar"}
       </button>
     </div>

@@ -11,7 +11,7 @@ export function RoiCalculator({ plots }: { plots: Plot[] }) {
   const activePlots = plots.filter((p) => p.type !== "empty").length;
 
   const stats = [
-    { label: "Plots ativos", value: `${activePlots}/${plots.length}`, color: "text-[#e8dcc8]" },
+    { label: "Plots ativos", value: `${activePlots}/${plots.length}`, color: "text-[#e8d5b5]" },
     { label: "Retorno diario", value: formatSilver(totalDaily), color: "text-[#c8a84e]" },
     { label: "Retorno semanal", value: formatSilver(totalDaily * 7), color: "text-[#c8a84e]" },
     { label: "Retorno mensal", value: formatSilver(totalDaily * 30), color: "text-green-400" },
@@ -20,7 +20,7 @@ export function RoiCalculator({ plots }: { plots: Plot[] }) {
   return (
     <div className="grid gap-4 sm:grid-cols-4">
       {stats.map((s) => (
-        <div key={s.label} className="rounded-lg border border-[#2a2f3e] bg-[#181c28] p-4">
+        <div key={s.label} className="rounded-lg border border-[#3a3028] bg-[#241e18] p-4">
           <p className="text-xs text-[#8b7635] mb-1">{s.label}</p>
           <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
         </div>

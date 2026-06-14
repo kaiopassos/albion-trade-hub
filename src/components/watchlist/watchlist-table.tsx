@@ -47,29 +47,29 @@ export function WatchlistTable() {
     await supabase.from("watchlist").update({ min_margin_threshold: value }).eq("id", id);
   };
 
-  if (loading) return <p className="text-neutral-400 text-sm">Carregando...</p>;
-  if (items.length === 0) return <p className="text-neutral-400 text-sm">Nenhum item na watchlist. Va ao Explorador de Precos e adicione itens.</p>;
+  if (loading) return <p className="text-[#8b7635] text-sm">Carregando...</p>;
+  if (items.length === 0) return <p className="text-[#8b7635] text-sm">Nenhum item na watchlist. Va ao Explorador de Precos e adicione itens.</p>;
 
   return (
-    <div className="rounded-lg border border-neutral-800 overflow-hidden">
+    <div className="rounded-lg border border-[#3a3028] overflow-hidden">
       <table className="w-full text-sm">
-        <thead className="bg-neutral-900">
+        <thead className="bg-[#12100c]">
           <tr>
-            <th className="px-4 py-3 text-left text-xs font-medium text-neutral-400 uppercase">Item</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-neutral-400 uppercase">Tier</th>
-            <th className="px-4 py-3 text-right text-xs font-medium text-neutral-400 uppercase">Preco Atual</th>
-            <th className="px-4 py-3 text-right text-xs font-medium text-neutral-400 uppercase">Margem Min (%)</th>
+            <th className="px-4 py-3 text-left text-xs font-medium text-[#8b7635] uppercase">Item</th>
+            <th className="px-4 py-3 text-left text-xs font-medium text-[#8b7635] uppercase">Tier</th>
+            <th className="px-4 py-3 text-right text-xs font-medium text-[#8b7635] uppercase">Preco Atual</th>
+            <th className="px-4 py-3 text-right text-xs font-medium text-[#8b7635] uppercase">Margem Min (%)</th>
             <th className="px-4 py-3"></th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-neutral-800">
+        <tbody className="divide-y divide-[#3a3028]">
           {items.map((item) => (
-            <tr key={item.id} className="hover:bg-neutral-800/50">
-              <td className="px-4 py-3 font-medium text-white">{item.items?.name || item.item_id}</td>
-              <td className="px-4 py-3 text-neutral-400">T{item.items?.tier || "?"}</td>
-              <td className="px-4 py-3 text-right font-mono text-white">{item.latest_price && item.latest_price > 0 ? formatSilver(item.latest_price) : "---"}</td>
+            <tr key={item.id} className="hover:bg-[#241e18]">
+              <td className="px-4 py-3 font-medium text-[#e8d5b5]">{item.items?.name || item.item_id}</td>
+              <td className="px-4 py-3 text-[#a89070]">T{item.items?.tier || "?"}</td>
+              <td className="px-4 py-3 text-right font-mono text-[#e8d5b5]">{item.latest_price && item.latest_price > 0 ? formatSilver(item.latest_price) : "---"}</td>
               <td className="px-4 py-3 text-right">
-                <input type="number" className="w-20 ml-auto rounded border border-neutral-700 bg-neutral-900 px-2 py-1 text-sm text-white text-right" defaultValue={item.min_margin_threshold} onBlur={(e) => handleThresholdChange(item.id, Number(e.target.value))} />
+                <input type="number" className="w-20 ml-auto rounded border border-[#3a3028] bg-[#12100c] px-2 py-1 text-sm text-[#e8d5b5] text-right" defaultValue={item.min_margin_threshold} onBlur={(e) => handleThresholdChange(item.id, Number(e.target.value))} />
               </td>
               <td className="px-4 py-3">
                 <button onClick={() => handleDelete(item.id)} className="rounded p-1 text-red-400 hover:bg-red-500/20">

@@ -14,18 +14,18 @@ export default function GuidePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight text-white">Guia do Trader</h2>
-        <p className="text-neutral-400 text-sm">Aprenda os fundamentos do mercado do Albion Online.</p>
+        <h2 className="text-2xl font-bold tracking-tight text-[#e8d5b5]">Guia do Trader</h2>
+        <p className="text-[#8b7635] text-sm">Aprenda os fundamentos do mercado do Albion Online.</p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {guides.map((guide) => (
           <Link key={guide.slug} href={`/guide/${guide.slug}`}
-            className="rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 transition-colors hover:bg-neutral-800/50">
+            className="rounded-lg border border-[#3a3028] bg-[#241e18] p-6 transition-colors hover:bg-[#2e2620] hover:border-[#c8a84e]/30">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="font-medium text-white">{guide.title}</h3>
-              <ArrowRight className="h-4 w-4 text-neutral-500" />
+              <h3 className="font-medium text-[#e8d5b5]">{guide.title}</h3>
+              <ArrowRight className="h-4 w-4 text-[#8b7635]" />
             </div>
-            <p className="text-sm text-neutral-400">{guide.description}</p>
+            <p className="text-sm text-[#a89070]">{guide.description}</p>
           </Link>
         ))}
       </div>

@@ -73,20 +73,20 @@ export default function AssistantPage() {
           <MessageCircle className="h-6 w-6 text-[#c8a84e]" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold tracking-tight text-[#e8dcc8]">Assistente IA</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-[#e8d5b5]">Assistente IA</h2>
           <p className="text-[#8b7635] text-sm">Tire duvidas sobre mercado, ilha, builds e estrategias.</p>
         </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-auto rounded-lg border border-[#2a2f3e] bg-[#12151e] p-4 space-y-4">
+      <div className="flex-1 overflow-auto rounded-lg border border-[#3a3028] bg-[#12100c] p-4 space-y-4">
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full space-y-6">
             <div className="rounded-full bg-[#c8a84e]/10 p-6 border border-[#c8a84e]/20">
               <Bot className="h-12 w-12 text-[#c8a84e]" />
             </div>
             <div className="text-center space-y-2">
-              <p className="text-[#e8dcc8] font-medium">Como posso te ajudar?</p>
+              <p className="text-[#e8d5b5] font-medium">Como posso te ajudar?</p>
               <p className="text-xs text-[#8b7635]">Tenho acesso aos dados de mercado em tempo real.</p>
             </div>
             <div className="grid grid-cols-2 gap-2 max-w-lg">
@@ -94,7 +94,7 @@ export default function AssistantPage() {
                 <button
                   key={s}
                   onClick={() => sendMessage(s)}
-                  className="rounded-lg border border-[#2a2f3e] bg-[#181c28] px-3 py-2 text-xs text-[#a89878] hover:border-[#c8a84e]/30 hover:text-[#c8a84e] transition-colors text-left"
+                  className="rounded-lg border border-[#3a3028] bg-[#241e18] px-3 py-2 text-xs text-[#a89070] hover:border-[#c8a84e]/30 hover:text-[#c8a84e] transition-colors text-left"
                 >
                   {s}
                 </button>
@@ -112,14 +112,14 @@ export default function AssistantPage() {
             )}
             <div className={`rounded-lg px-4 py-3 max-w-[75%] text-sm ${
               msg.role === "user"
-                ? "bg-[#c8a84e]/10 text-[#e8dcc8] border border-[#c8a84e]/20"
-                : "bg-[#181c28] text-[#a89878] border border-[#2a2f3e]"
+                ? "bg-[#c8a84e]/10 text-[#e8d5b5] border border-[#c8a84e]/20"
+                : "bg-[#241e18] text-[#a89070] border border-[#3a3028]"
             }`}>
               <p className="whitespace-pre-wrap">{msg.content}</p>
             </div>
             {msg.role === "user" && (
-              <div className="shrink-0 h-8 w-8 rounded-lg bg-[#2a2f3e] flex items-center justify-center">
-                <User className="h-4 w-4 text-[#a89878]" />
+              <div className="shrink-0 h-8 w-8 rounded-lg bg-[#3a3028] flex items-center justify-center">
+                <User className="h-4 w-4 text-[#a89070]" />
               </div>
             )}
           </div>
@@ -130,7 +130,7 @@ export default function AssistantPage() {
             <div className="shrink-0 h-8 w-8 rounded-lg bg-[#c8a84e]/10 flex items-center justify-center border border-[#c8a84e]/20">
               <Bot className="h-4 w-4 text-[#c8a84e]" />
             </div>
-            <div className="rounded-lg bg-[#181c28] border border-[#2a2f3e] px-4 py-3">
+            <div className="rounded-lg bg-[#241e18] border border-[#3a3028] px-4 py-3">
               <Loader2 className="h-4 w-4 text-[#c8a84e] animate-spin" />
             </div>
           </div>
@@ -146,13 +146,13 @@ export default function AssistantPage() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Pergunte sobre mercado, ilha, builds..."
-          className="flex-1 rounded-lg border border-[#2a2f3e] bg-[#181c28] px-4 py-3 text-sm text-[#e8dcc8] placeholder:text-[#8b7635] focus:border-[#c8a84e] focus:outline-none"
+          className="flex-1 rounded-lg border border-[#3a3028] bg-[#241e18] px-4 py-3 text-sm text-[#e8d5b5] placeholder:text-[#8b7635] focus:border-[#c8a84e] focus:outline-none"
           disabled={loading}
         />
         <button
           onClick={() => sendMessage()}
           disabled={loading || !input.trim()}
-          className="rounded-lg bg-[#c8a84e] px-4 py-3 text-[#0c0e14] hover:bg-[#d4b85e] disabled:opacity-50 transition-colors"
+          className="rounded-lg bg-[#c8a84e] px-4 py-3 text-[#1a1410] hover:bg-[#d4b85e] disabled:opacity-50 transition-colors"
         >
           <Send className="h-4 w-4" />
         </button>

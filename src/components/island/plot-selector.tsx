@@ -26,7 +26,7 @@ interface PlotSelectorProps { value: string; onChange: (value: string) => void; 
 export function PlotSelector({ value, onChange }: PlotSelectorProps) {
   return (
     <select value={value} onChange={(e) => onChange(e.target.value)}
-      className="w-full rounded-lg border border-[#2a2f3e] bg-[#12151e] px-2 py-1.5 text-xs text-[#e8dcc8] focus:border-[#c8a84e] focus:outline-none">
+      className="w-full rounded-lg border border-[#3a3028] bg-[#12100c] px-2 py-1.5 text-xs text-[#e8d5b5] focus:border-[#c8a84e] focus:outline-none">
       {PLOT_TYPES.map((type) => (
         <option key={type.value} value={type.value}>{type.label}</option>
       ))}

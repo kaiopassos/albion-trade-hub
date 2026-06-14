@@ -10,7 +10,7 @@ export default function HomePage() {
             <Swords className="h-6 w-6 text-[#c8a84e]" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold tracking-tight text-[#e8dcc8]">Trades</h2>
+            <h2 className="text-2xl font-bold tracking-tight text-[#e8d5b5]">Trades</h2>
             <p className="text-[#8b7635] text-sm">
               Oportunidades de flip atualizadas a cada 5 minutos.
             </p>

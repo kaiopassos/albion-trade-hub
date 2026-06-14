@@ -59,15 +59,15 @@ export default async function GuideArticlePage({ params }: { params: Promise<{ s
 
   return (
     <div className="max-w-3xl space-y-6">
-      <Link href="/guide" className="inline-flex items-center gap-1 text-sm text-neutral-400 hover:text-white">
+      <Link href="/guide" className="inline-flex items-center gap-1 text-sm text-[#a89070] hover:text-[#e8d5b5]">
         <ArrowLeft className="h-4 w-4" /> Voltar
       </Link>
-      <h2 className="text-2xl font-bold text-white">{article.title}</h2>
+      <h2 className="text-2xl font-bold text-[#e8d5b5]">{article.title}</h2>
       {article.sections.map((section, i) => (
         <div key={i} className="space-y-2">
-          <h3 className="text-lg font-semibold text-white">{section.heading}</h3>
+          <h3 className="text-lg font-semibold text-[#e8d5b5]">{section.heading}</h3>
           {section.content.split("\n").map((line, j) => (
-            <p key={j} className="text-sm text-neutral-400">{line}</p>
+            <p key={j} className="text-sm text-[#a89070]">{line}</p>
           ))}
         </div>
       ))}

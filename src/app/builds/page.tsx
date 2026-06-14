@@ -24,16 +24,16 @@ function itemIcon(itemId: string) {
 
 function rankStyle(rank: number) {
   if (rank === 1) return "border-[#c8a84e] bg-[#c8a84e]/5";
-  if (rank === 2) return "border-[#a89878] bg-[#a89878]/5";
+  if (rank === 2) return "border-[#a89070] bg-[#a89070]/5";
   if (rank === 3) return "border-[#8b7635] bg-[#8b7635]/5";
-  return "border-[#2a2f3e] bg-[#181c28]";
+  return "border-[#3a3028] bg-[#241e18]";
 }
 
 function rankBadge(rank: number) {
-  if (rank === 1) return "bg-[#c8a84e] text-[#0c0e14]";
-  if (rank === 2) return "bg-[#a89878] text-[#0c0e14]";
-  if (rank === 3) return "bg-[#8b7635] text-[#0c0e14]";
-  return "bg-[#2a2f3e] text-[#a89878]";
+  if (rank === 1) return "bg-[#c8a84e] text-[#1a1410]";
+  if (rank === 2) return "bg-[#a89070] text-[#1a1410]";
+  if (rank === 3) return "bg-[#8b7635] text-[#1a1410]";
+  return "bg-[#3a3028] text-[#a89070]";
 }
 
 export default function BuildsPage() {
@@ -64,7 +64,7 @@ export default function BuildsPage() {
             <Shield className="h-6 w-6 text-[#c8a84e]" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold tracking-tight text-[#e8dcc8]">Meta Builds</h2>
+            <h2 className="text-2xl font-bold tracking-tight text-[#e8d5b5]">Meta Builds</h2>
             <p className="text-[#8b7635] text-sm">
               Builds mais usadas em PvP baseado em {totalEvents} eventos recentes.
             </p>
@@ -77,7 +77,7 @@ export default function BuildsPage() {
           <div className="h-8 w-8 border-2 border-[#c8a84e]/30 border-t-[#c8a84e] rounded-full animate-spin" />
         </div>
       ) : builds.length === 0 ? (
-        <div className="rounded-lg border border-[#2a2f3e] bg-[#181c28] p-12 text-center">
+        <div className="rounded-lg border border-[#3a3028] bg-[#241e18] p-12 text-center">
           <p className="text-[#8b7635]">Nao foi possivel carregar builds. Tente novamente.</p>
         </div>
       ) : (
@@ -102,17 +102,17 @@ export default function BuildsPage() {
               <div className="flex items-center gap-1 mb-3">
                 {[build.weapon, build.helmet, build.armor, build.shoes, build.cape].map((item, i) => (
                   item ? (
-                    <img key={i} src={itemIcon(item)!} alt={item} className="h-11 w-11 rounded border border-[#2a2f3e] bg-[#12151e]"
+                    <img key={i} src={itemIcon(item)!} alt={item} className="h-11 w-11 rounded border border-[#3a3028] bg-[#12100c]"
                       onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
                   ) : (
-                    <div key={i} className="h-11 w-11 rounded border border-[#2a2f3e] bg-[#12151e]" />
+                    <div key={i} className="h-11 w-11 rounded border border-[#3a3028] bg-[#12100c]" />
                   )
                 ))}
               </div>
 
               {/* Stats */}
               <div className="flex items-center gap-3 text-xs">
-                <span className="rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5">
+                <span className="rounded bg-[#c8a84e]/10 text-[#c8a84e] border border-[#c8a84e]/20 px-2 py-0.5">
                   IP {build.avgIP}
                 </span>
                 <span className="rounded bg-[#c8a84e]/10 text-[#c8a84e] border border-[#c8a84e]/20 px-2 py-0.5">

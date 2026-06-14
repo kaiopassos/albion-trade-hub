@@ -30,7 +30,7 @@ export function OpportunityList() {
           <div className="h-8 w-8 border-2 border-[#c8a84e]/30 border-t-[#c8a84e] rounded-full animate-spin" />
         </div>
       ) : opportunities.length === 0 ? (
-        <div className="rounded-lg border border-[#2a2f3e] bg-[#181c28] p-12 text-center">
+        <div className="rounded-lg border border-[#3a3028] bg-[#241e18] p-12 text-center">
           <p className="text-[#8b7635] text-sm">Nenhuma oportunidade encontrada.</p>
           <p className="text-[#8b7635] text-xs mt-1">Aguarde o scanner processar novos dados ou ajuste os filtros.</p>
         </div>

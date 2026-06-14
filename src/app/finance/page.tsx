@@ -39,14 +39,14 @@ export default function FinancePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight text-white">Financeiro</h2>
-        <p className="text-neutral-400 text-sm">Registre compras e vendas para acompanhar seu lucro.</p>
+        <h2 className="text-2xl font-bold tracking-tight text-[#e8d5b5]">Financeiro</h2>
+        <p className="text-[#8b7635] text-sm">Registre compras e vendas para acompanhar seu lucro.</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
         {stats.map((s) => (
-          <div key={s.label} className="rounded-lg border border-neutral-800 bg-neutral-900/50 p-4">
-            <p className="text-xs text-neutral-500 mb-1">{s.label}</p>
+          <div key={s.label} className="rounded-lg border border-[#3a3028] bg-[#241e18] p-4">
+            <p className="text-xs text-[#8b7635] mb-1">{s.label}</p>
             <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
           </div>
         ))}
