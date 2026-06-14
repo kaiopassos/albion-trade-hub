@@ -1,8 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #0c0e14;
+  --foreground: #e8dcc8;
+  --gold: #c8a84e;
+  --gold-dim: #8b7635;
+  --parchment: #e8dcc8;
+  --parchment-dim: #a89878;
+  --blood: #8b2020;
+  --forest: #2d5a27;
+  --steel: #6b7b8d;
+  --dark-bg: #12151e;
+  --card-bg: #181c28;
+  --border: #2a2f3e;
 }
 
 @theme inline {
@@ -14,3 +24,12 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--dark-bg); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* Glow effect for important elements */
+.glow-gold { box-shadow: 0 0 15px rgba(200, 168, 78, 0.15); }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Bell } from "lucide-react";
+import { Bell, Swords } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 export function Header() {
@@ -19,15 +19,19 @@ export function Header() {
   }, []);
 
   return (
-    <header className="flex h-14 items-center justify-between border-b border-neutral-800 bg-neutral-950 px-6">
-      <div />
+    <header className="flex h-14 items-center justify-between border-b border-[#2a2f3e] bg-[#12151e] px-6">
+      <div className="flex items-center gap-2 text-[#8b7635]">
+        <Swords className="h-4 w-4" />
+        <span className="text-xs">Market Scanner Ativo</span>
+        <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+      </div>
       <button
-        className="relative rounded-md p-2 text-neutral-400 hover:bg-neutral-800 hover:text-white"
+        className="relative rounded-lg p-2 text-[#a89878] hover:bg-[#1e2230] hover:text-[#c8a84e] transition-colors"
         onClick={() => setNewOppsCount(0)}
       >
         <Bell className="h-5 w-5" />
         {newOppsCount > 0 && (
-          <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white animate-pulse">
+          <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#8b2020] text-xs font-bold text-white animate-pulse">
             {newOppsCount > 9 ? "9+" : newOppsCount}
           </span>
         )}
