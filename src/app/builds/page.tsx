@@ -36,6 +36,18 @@ function rankBadge(rank: number) {
   return "bg-[#3a3028] text-[#a89070]";
 }
 
+function getWeaponTags(weapon: string): string[] {
+  const tags: string[] = [];
+  const w = weapon.toLowerCase();
+  if (w.includes("sword") || w.includes("mace") || w.includes("hammer") || w.includes("axe")) tags.push("DPS_MELEE");
+  if (w.includes("bow") || w.includes("crossbow")) tags.push("DPS_RANGED");
+  if (w.includes("staff") && (w.includes("fire") || w.includes("frost") || w.includes("arcane") || w.includes("curse"))) tags.push("DPS_MAGIC");
+  if (w.includes("holy") || w.includes("nature")) tags.push("HEALER");
+  if (w.includes("shield") || w.includes("spiked")) tags.push("TANK");
+  if (tags.length === 0) tags.push("PVP");
+  return tags;
+}
+
 export default function BuildsPage() {
   const [builds, setBuilds] = useState<Build[]>([]);
   const [loading, setLoading] = useState(true);
@@ -107,6 +119,15 @@ export default function BuildsPage() {
                   ) : (
                     <div key={i} className="h-11 w-11 rounded border border-[#3a3028] bg-[#12100c]" />
                   )
+                ))}
+              </div>
+
+              {/* Tags */}
+              <div className="flex gap-1 flex-wrap mb-2">
+                {getWeaponTags(build.weapon).map(tag => (
+                  <span key={tag} className="rounded bg-[#12100c] border border-[#3a3028] px-1.5 py-0.5 text-[9px] font-bold text-[#8b7635] uppercase">
+                    {tag}
+                  </span>
                 ))}
               </div>
 
