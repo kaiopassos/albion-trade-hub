@@ -5,6 +5,14 @@ const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY!;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
+// Fallback models in order of preference
+const MODELS = [
+  "meta-llama/llama-3.3-70b-instruct:free",
+  "qwen/qwen3-coder:free",
+  "nvidia/nemotron-3-nano-30b-a3b:free",
+  "google/gemma-4-31b-it:free",
+];
+
 const SYSTEM_PROMPT = `Voce e o Assistente do Albion Trade Hub, um conselheiro especializado em Albion Online.
 Voce ajuda jogadores com:
 - Estrategias de mercado (city flip, time flip, craft flip)
@@ -31,7 +39,6 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
 
-    // Fetch some market context
     const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
     const { data: topOpps } = await supabase
@@ -58,31 +65,39 @@ export async function POST(req: Request) {
     const playerName = settings?.player_name || "AlguemMeAjudaPF";
     const systemWithContext = SYSTEM_PROMPT.replace("AlguemMeAjudaPF", playerName) + marketContext;
 
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENROUTER_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "google/gemma-4-31b-it:free",
-        messages: [
-          { role: "system", content: systemWithContext },
-          ...messages,
-        ],
-        max_tokens: 1000,
-      }),
-    });
+    // Try models in order until one works
+    for (const model of MODELS) {
+      try {
+        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${OPENROUTER_KEY}`,
+          },
+          body: JSON.stringify({
+            model,
+            messages: [
+              { role: "system", content: systemWithContext },
+              ...messages,
+            ],
+            max_tokens: 1000,
+          }),
+        });
 
-    if (!response.ok) {
-      const error = await response.text();
-      return NextResponse.json({ error }, { status: response.status });
+        if (response.ok) {
+          const data = await response.json();
+          const reply = data.choices?.[0]?.message?.content;
+          if (reply) {
+            return NextResponse.json({ reply });
+          }
+        }
+        // If 429 or error, try next model
+      } catch {
+        continue;
+      }
     }
 
-    const data = await response.json();
-    const reply = data.choices?.[0]?.message?.content || "Desculpe, nao consegui processar sua pergunta.";
-
-    return NextResponse.json({ reply });
+    return NextResponse.json({ error: "Todos os modelos estao indisponiveis no momento. Tente novamente em alguns minutos." }, { status: 503 });
   } catch (error) {
     return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
