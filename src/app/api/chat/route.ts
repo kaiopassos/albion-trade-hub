@@ -65,7 +65,7 @@ export async function POST(req: Request) {
         Authorization: `Bearer ${OPENROUTER_KEY}`,
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash-preview:free",
+        model: "google/gemma-4-31b-it:free",
         messages: [
           { role: "system", content: systemWithContext },
           ...messages,
