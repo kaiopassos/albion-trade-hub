@@ -23,8 +23,8 @@ export function ProfitChart({ transactions }: { transactions: Transaction[] }) {
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#333" />
           <XAxis dataKey="day" tick={{ fontSize: 11, fill: "#888" }} />
-          <YAxis tick={{ fontSize: 11, fill: "#888" }} tickFormatter={(v: number) => v >= 1000000 ? `${(v / 1000000).toFixed(1)}M` : v >= 1000 ? `${(v / 1000).toFixed(0)}K` : `${v}`} />
-          <Tooltip contentStyle={{ backgroundColor: "#1a1a2e", border: "1px solid #333", borderRadius: "8px" }} formatter={(value: number) => [`${value.toLocaleString()} silver`, "Lucro"]} />
+          <YAxis tick={{ fontSize: 11, fill: "#888" }} tickFormatter={(v) => Number(v) >= 1000000 ? `${(Number(v) / 1000000).toFixed(1)}M` : Number(v) >= 1000 ? `${(Number(v) / 1000).toFixed(0)}K` : `${v}`} />
+          <Tooltip contentStyle={{ backgroundColor: "#1a1a2e", border: "1px solid #333", borderRadius: "8px" }} formatter={(value) => [`${Number(value).toLocaleString()} silver`, "Lucro"]} />
           <Bar dataKey="lucro" fill="#22c55e" radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
