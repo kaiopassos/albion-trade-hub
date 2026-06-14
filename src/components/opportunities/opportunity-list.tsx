@@ -4,6 +4,7 @@ import { useState } from "react";
 import { OpportunityCard } from "./opportunity-card";
 import { OpportunityFilters } from "./opportunity-filters";
 import { useRealtimeOpportunities } from "@/hooks/use-realtime-opportunities";
+import { getItemName } from "@/lib/item-names";
 
 export function OpportunityList() {
   const [type, setType] = useState("all");
@@ -11,6 +12,7 @@ export function OpportunityList() {
   const [category, setCategory] = useState("all");
   const [tier, setTier] = useState("all");
   const [sortBy, setSortBy] = useState("margin_net");
+  const [search, setSearch] = useState("");
 
   const filters = {
     type: type === "all" ? undefined : type,
@@ -19,10 +21,21 @@ export function OpportunityList() {
 
   const { opportunities, loading } = useRealtimeOpportunities(filters);
 
-  // Client-side filtering for category and tier
+  // Client-side filtering
   let filtered = opportunities;
+
   if (tier !== "all") {
     filtered = filtered.filter(o => o.buy_item_id.startsWith(`T${tier}_`));
+  }
+
+  if (search.trim()) {
+    const q = search.toLowerCase();
+    filtered = filtered.filter(o =>
+      o.buy_item_id.toLowerCase().includes(q) ||
+      getItemName(o.buy_item_id).toLowerCase().includes(q) ||
+      o.buy_city.toLowerCase().includes(q) ||
+      o.sell_city.toLowerCase().includes(q)
+    );
   }
 
   // Sort
@@ -35,9 +48,9 @@ export function OpportunityList() {
   return (
     <div className="space-y-4">
       <OpportunityFilters
-        type={type} minMargin={minMargin} category={category} tier={tier} sortBy={sortBy}
+        type={type} minMargin={minMargin} category={category} tier={tier} sortBy={sortBy} search={search}
         onTypeChange={setType} onMinMarginChange={setMinMargin} onCategoryChange={setCategory}
-        onTierChange={setTier} onSortChange={setSortBy}
+        onTierChange={setTier} onSortChange={setSortBy} onSearchChange={setSearch}
       />
 
       <div className="flex items-center justify-between">
