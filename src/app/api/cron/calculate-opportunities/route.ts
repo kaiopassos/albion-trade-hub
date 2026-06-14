@@ -140,8 +140,8 @@ export async function GET(req: Request) {
 
           const marginPct = Math.round((marginNet / buyPrice) * 100);
 
-          // Layer 3: Cap margin at 200% — anything higher is suspicious
-          if (marginPct > 200) {
+          // Layer 3: Cap margin at 100% — higher margins are usually fake or illiquid
+          if (marginPct > 100) {
             filtered++;
             continue;
           }
@@ -149,9 +149,14 @@ export async function GET(req: Request) {
           // Min 5% margin to be worth showing
           if (marginPct < 5) continue;
 
+          // Calculate risk based on route and data quality
           const dataAge = (Date.now() - new Date(buy.fetched_at).getTime()) / 60000;
+          const dangerousCities = ["Caerleon", "Black Market", "Brecilien"];
+          const routeRisk = (dangerousCities.includes(buy.city) || dangerousCities.includes(sell.city)) ? 0.6 : 0.1;
+          const ageRisk = dataAge > 30 ? 0.8 : dataAge > 15 ? 0.4 : 0.1;
+          const hasBuyOrders = sell.buy_price_max > 0 ? 0 : 0.3; // No buy orders = riskier
           const riskScore = Math.min(1, Math.max(0,
-            Math.round((0.4 * (dataAge > 30 ? 0.9 : dataAge > 15 ? 0.5 : 0.1) + 0.4 * 0.3 + 0.2 * (marginPct > 100 ? 0.4 : 0)) * 100) / 100
+            Math.round((routeRisk * 0.4 + ageRisk * 0.3 + hasBuyOrders * 0.3) * 100) / 100
           ));
 
           opportunities.push({
