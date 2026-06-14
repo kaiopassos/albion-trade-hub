@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { OpportunityCard } from "./opportunity-card";
+import { OpportunityCard, OpportunityTableHeader } from "./opportunity-card";
 import { OpportunityFilters } from "./opportunity-filters";
 import { useRealtimeOpportunities } from "@/hooks/use-realtime-opportunities";
 import { getItemName } from "@/lib/item-names";
@@ -21,7 +21,6 @@ export function OpportunityList() {
 
   const { opportunities, loading } = useRealtimeOpportunities(filters);
 
-  // Client-side filtering
   let filtered = opportunities;
 
   if (tier !== "all") {
@@ -38,7 +37,6 @@ export function OpportunityList() {
     );
   }
 
-  // Sort
   if (sortBy === "margin_pct") {
     filtered = [...filtered].sort((a, b) => Number(b.margin_pct) - Number(a.margin_pct));
   } else if (sortBy === "buy_price") {
@@ -53,10 +51,6 @@ export function OpportunityList() {
         onTierChange={setTier} onSortChange={setSortBy} onSearchChange={setSearch}
       />
 
-      <div className="flex items-center justify-between">
-        <p className="text-xs text-[#8b7635]">{filtered.length} oportunidades encontradas</p>
-      </div>
-
       {loading ? (
         <div className="flex items-center justify-center py-12">
           <div className="h-8 w-8 border-2 border-[#c8a84e]/30 border-t-[#c8a84e] rounded-full animate-spin" />
@@ -67,9 +61,13 @@ export function OpportunityList() {
           <p className="text-[#8b7635] text-xs mt-1">Ajuste os filtros ou aguarde novos dados.</p>
         </div>
       ) : (
-        <div className="space-y-2">
-          {filtered.map((opp) => (
-            <OpportunityCard key={opp.id} opp={opp} />
+        <div className="rounded-lg border border-[#3a3028] bg-[#241e18] overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-2 border-b border-[#3a3028]">
+            <p className="text-xs text-[#8b7635]">{filtered.length} FLIPs encontrados</p>
+          </div>
+          <OpportunityTableHeader />
+          {filtered.map((opp, i) => (
+            <OpportunityCard key={opp.id} opp={opp} rank={i + 1} />
           ))}
         </div>
       )}
