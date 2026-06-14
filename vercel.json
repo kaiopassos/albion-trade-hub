@@ -1,0 +1,16 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/fetch-prices",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/cron/calculate-opportunities",
+      "schedule": "2-57/5 * * * *"
+    },
+    {
+      "path": "/api/cron/sync-items",
+      "schedule": "0 4 * * *"
+    }
+  ]
+}
