@@ -172,6 +172,44 @@ export async function GET(req: Request) {
       }
     }
 
+    // --- BLACK MARKET FLIPS ---
+    // Buy items in royal cities (sell_price_min) → Sell to BM NPCs (buy_price_max)
+    // BM buy orders are placed by NPCs and pay well for items they need
+    for (const [itemId, entries] of byItem) {
+      const bmEntry = entries.find(e => e.city === "Black Market");
+      if (!bmEntry || bmEntry.buy_price_max <= 0) continue;
+
+      const royalEntries = entries.filter(e => e.city !== "Black Market" && e.sell_price_min > 0);
+
+      for (const buy of royalEntries) {
+        const buyPrice = buy.sell_price_min;
+        const sellPrice = bmEntry.buy_price_max; // BM NPC buy price
+
+        if (sellPrice <= buyPrice) continue;
+
+        const marginRaw = sellPrice - buyPrice;
+        const marginNet = marginRaw; // No tax on BM sells
+        const marginPct = Math.round((marginNet / buyPrice) * 100);
+
+        if (marginPct > 200 || marginPct < 5) continue;
+
+        opportunities.push({
+          type: "city", // reuse city type, will show as BM in city name
+          buy_item_id: itemId,
+          buy_city: buy.city,
+          buy_price: buyPrice,
+          sell_city: "Black Market",
+          sell_price: sellPrice,
+          margin_raw: marginRaw,
+          margin_net: marginNet,
+          margin_pct: marginPct,
+          volume: 3,
+          risk_score: 0.2, // BM is safe (Caerleon)
+          status: "active",
+        });
+      }
+    }
+
     // Expire old
     await supabase
       .from("opportunities")

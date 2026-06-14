@@ -4,7 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const AODP_BASE = "https://west.albion-online-data.com";
-const CITIES = "Bridgewatch,Fort Sterling,Lymhurst,Martlock,Thetford,Caerleon,Brecilien";
+const CITIES = "Bridgewatch,Fort Sterling,Lymhurst,Martlock,Thetford,Caerleon,Brecilien,Black Market";
 const BATCH_SIZE = 50;
 
 export async function GET(req: Request) {
