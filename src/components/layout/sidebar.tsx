@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, Search, Star, Palmtree, Wallet, BookOpen, Settings, MessageCircle } from "lucide-react";
+import { BarChart3, Search, Star, Palmtree, Wallet, BookOpen, Shield, Settings, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -12,6 +12,7 @@ const navItems = [
   { href: "/island", label: "Ilha", icon: Palmtree },
   { href: "/finance", label: "Financeiro", icon: Wallet },
   { href: "/guide", label: "Guia", icon: BookOpen },
+  { href: "/builds", label: "Meta Builds", icon: Shield },
   { href: "/assistant", label: "Assistente IA", icon: MessageCircle },
   { href: "/settings", label: "Config", icon: Settings },
 ];

@@ -55,6 +55,36 @@ export async function GET(req: Request) {
       if (!byKey.has(key)) byKey.set(key, p);
     }
 
+    // --- Anti-outlier filtering ---
+    // 1. Group all prices by item to calculate median
+    const pricesByItem = new Map<string, number[]>();
+    for (const p of byKey.values()) {
+      const list = pricesByItem.get(p.item_id) || [];
+      list.push(p.sell_price_min);
+      pricesByItem.set(p.item_id, list);
+    }
+
+    // 2. Calculate median per item
+    const medianByItem = new Map<string, number>();
+    for (const [itemId, itemPrices] of pricesByItem) {
+      const sorted = [...itemPrices].sort((a, b) => a - b);
+      const mid = Math.floor(sorted.length / 2);
+      const median = sorted.length % 2 === 0
+        ? (sorted[mid - 1] + sorted[mid]) / 2
+        : sorted[mid];
+      medianByItem.set(itemId, median);
+    }
+
+    // 3. Filter out outliers: >10x median, <0.1x median, or <10 silver
+    for (const [key, p] of byKey) {
+      const median = medianByItem.get(p.item_id) || 0;
+      if (median <= 0) continue;
+      const ratio = p.sell_price_min / median;
+      if (ratio > 10 || ratio < 0.1 || p.sell_price_min < 10) {
+        byKey.delete(key);
+      }
+    }
+
     // Group by item
     const byItem = new Map<string, PriceRow[]>();
     for (const p of byKey.values()) {

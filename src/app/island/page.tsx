@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { IslandGrid } from "@/components/island/island-grid";
 import { RoiCalculator } from "@/components/island/roi-calculator";
-import { CITY_BONUSES, FARM_CROPS, FARM_ANIMALS, BUILDINGS, getRecommendation } from "@/lib/island-data";
+import { CITY_BONUSES, FARM_CROPS, FARM_ANIMALS, getRecommendation } from "@/lib/island-data";
 import { createClient } from "@/lib/supabase/client";
 import { formatSilver } from "@/lib/utils";
 import { Palmtree, MapPin, Lightbulb, Sprout, PawPrint } from "lucide-react";
