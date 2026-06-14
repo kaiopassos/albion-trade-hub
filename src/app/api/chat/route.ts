@@ -65,7 +65,7 @@ export async function POST(req: Request) {
         Authorization: `Bearer ${OPENROUTER_KEY}`,
       },
       body: JSON.stringify({
-        model: "meta-llama/llama-4-maverick:free",
+        model: "google/gemini-2.5-flash-preview:free",
         messages: [
           { role: "system", content: systemWithContext },
           ...messages,
