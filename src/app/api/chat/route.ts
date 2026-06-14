@@ -82,15 +82,31 @@ export async function POST(req: Request) {
 
     // Player info
     const playerName = settings?.player_name || "AlguemMeAjudaPF";
+    const islandCity = settings?.preferred_cities?.[0] || "Lymhurst";
     context += "\n\nDADOS DO JOGADOR:";
     context += "\n- Nick: " + playerName;
+    context += "\n- Cidade principal / ilha: " + islandCity;
     if (settings?.preferred_cities) context += "\n- Cidades preferidas: " + settings.preferred_cities.join(", ");
     if (settings?.premium_expiry_date) context += "\n- Premium expira em: " + settings.premium_expiry_date;
 
+    // Explicit island city bonus
+    const bonusMap: Record<string, string> = {
+      "Bridgewatch": "minerio/pedra (ORE/STONE) - refinar metalbar/stoneblock",
+      "Fort Sterling": "madeira (WOOD) - refinar planks",
+      "Lymhurst": "couro (HIDE/LEATHER) - refinar leather, craft leather armor e bags",
+      "Martlock": "fibra/tecido (FIBER/CLOTH) - refinar cloth, craft cloth armor e capas",
+      "Thetford": "sem bonus especifico - proximo de black zones",
+      "Caerleon": "hub central - acesso ao Black Market",
+    };
+    const bonus = bonusMap[islandCity] || "desconhecido";
+    context += "\n- BONUS DA CIDADE DA ILHA: " + islandCity + " = " + bonus;
+
     // Island data
     if (islandConfig) {
-      context += "\n\nDADOS DA ILHA DO JOGADOR:";
+      context += "\n\nDADOS DA ILHA DO JOGADOR (salvos pelo jogador):";
+      context += "\n- Cidade da ilha: " + islandCity;
       context += "\n- Tier da ilha: " + islandConfig.island_tier;
+      context += "\n- IMPORTANTE: Ilha tier " + islandConfig.island_tier + " so pode plantar ate tier " + (islandConfig.island_tier + 1) + ". Ex: ilha T3 = planta ate T4, ilha T5 = planta ate T6.";
       if (islandConfig.plots && Array.isArray(islandConfig.plots)) {
         const plots = islandConfig.plots as { id: number; type: string }[];
         const activePlots = plots.filter(p => p.type !== "empty");
