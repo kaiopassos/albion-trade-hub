@@ -81,31 +81,31 @@ export async function POST(req: Request) {
 
     // Player info
     const playerName = settings?.player_name || "AlguemMeAjudaPF";
-    context += `\n\nDADOS DO JOGADOR:`;
-    context += `\n- Nick: ${playerName}`;
-    if (settings?.preferred_cities) context += `\n- Cidades preferidas: ${settings.preferred_cities.join(", ")}`;
-    if (settings?.premium_expiry_date) context += `\n- Premium expira em: ${settings.premium_expiry_date}`;
+    context += "\n\nDADOS DO JOGADOR:";
+    context += "\n- Nick: " + playerName;
+    if (settings?.preferred_cities) context += "\n- Cidades preferidas: " + settings.preferred_cities.join(", ");
+    if (settings?.premium_expiry_date) context += "\n- Premium expira em: " + settings.premium_expiry_date;
 
     // Island data
     if (islandConfig) {
-      context += `\n\nDADOS DA ILHA DO JOGADOR:`;
-      context += `\n- Tier da ilha: ${islandConfig.island_tier}`;
+      context += "\n\nDADOS DA ILHA DO JOGADOR:";
+      context += "\n- Tier da ilha: " + islandConfig.island_tier;
       if (islandConfig.plots && Array.isArray(islandConfig.plots)) {
         const plots = islandConfig.plots as { id: number; type: string }[];
         const activePlots = plots.filter(p => p.type !== "empty");
-        context += `\n- Plots totais: ${plots.length}`;
-        context += `\n- Plots ativos: ${activePlots.length}`;
+        context += "\n- Plots totais: " + plots.length;
+        context += "\n- Plots ativos: " + activePlots.length;
         if (activePlots.length > 0) {
-          context += `\n- Configuracao dos plots: ${activePlots.map(p => `Plot ${p.id}: ${p.type}`).join(", ")}`;
+          context += "\n- Configuracao dos plots: " + activePlots.map(p => "Plot " + p.id + ": " + p.type).join(", ");
         }
         const emptyPlots = plots.filter(p => p.type === "empty").length;
-        if (emptyPlots > 0) context += `\n- Plots vazios: ${emptyPlots}`;
+        if (emptyPlots > 0) context += "\n- Plots vazios: " + emptyPlots;
       }
     }
 
     // Watchlist
     if (watchlist && watchlist.length > 0) {
-      context += `\n\nWATCHLIST DO JOGADOR: ${watchlist.map(w => w.item_id).join(", ")}`;
+      context += "\n\nWATCHLIST DO JOGADOR: " + watchlist.map(w => w.item_id).join(", ");
     }
 
     // Financial summary
@@ -113,17 +113,17 @@ export async function POST(req: Request) {
       const totalBuy = transactions.filter(t => t.type === "buy").reduce((s, t) => s + Number(t.total), 0);
       const totalSell = transactions.filter(t => t.type === "sell").reduce((s, t) => s + Number(t.total), 0);
       const profit = totalSell - totalBuy;
-      context += `\n\nRESUMO FINANCEIRO RECENTE:`;
-      context += `\n- Total compras: ${totalBuy} silver`;
-      context += `\n- Total vendas: ${totalSell} silver`;
-      context += `\n- Lucro: ${profit} silver`;
+      context += "\n\nRESUMO FINANCEIRO RECENTE:";
+      context += "\n- Total compras: " + totalBuy + " silver";
+      context += "\n- Total vendas: " + totalSell + " silver";
+      context += "\n- Lucro: " + profit + " silver";
     }
 
     // Market opportunities
     if (topOpps && topOpps.length > 0) {
-      context += `\n\nTOP 10 OPORTUNIDADES DE FLIP ATIVAS:`;
+      context += "\n\nTOP 10 OPORTUNIDADES DE FLIP ATIVAS:";
       for (const o of topOpps) {
-        context += `\n- ${o.buy_item_id}: ${o.buy_city} -> ${o.sell_city} = +${o.margin_net} silver (${o.margin_pct}%)`;
+        context += "\n- " + o.buy_item_id + ": " + o.buy_city + " -> " + o.sell_city + " = +" + o.margin_net + " silver (" + o.margin_pct + "%)";
       }
     }
 
